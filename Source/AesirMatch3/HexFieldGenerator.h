@@ -31,8 +31,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void SpawnHexTile(FVector Location, FVector2D GridLocation);
 	void SpawnHexGrid(int32 MinX, int32 MaxX, int32 MinY, int32 MaxY, FVector BaseLocation);
+	void FillHexGrid(TMap<FVector2D,AActor*> GeneratedHexGrid);
+	void SpawnGamePiece(FVector SpawnLocation, FVector2D HexGridPosition);
+	void SpawnGamePiece(FVector SpawnLocation);
 
 private:
-
+	UPROPERTY(EditAnywhere) int32 MaxGridSizeX;
+	UPROPERTY(EditAnywhere) int32 MaxGridSizeY;
 	UPROPERTY(EditAnywhere) TSubclassOf<AActor> HexTile;
+	UPROPERTY(EditAnywhere) TArray<TSubclassOf<AActor>> GamePieces;
+	UPROPERTY(EditAnywhere) TMap<FVector2D,AActor*> HexGrid;
 };

@@ -2,7 +2,7 @@
 
 #include "HexTile.generated.h"
 
-USTRUCT(BlueprintType)
+USTRUCT()
 struct FHexTileData
 {
 	GENERATED_BODY()
