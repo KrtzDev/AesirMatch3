@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "GamePiece.h"
 
 #include "HexTile.generated.h"
 

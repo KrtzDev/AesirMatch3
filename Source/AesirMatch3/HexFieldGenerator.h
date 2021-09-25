@@ -7,7 +7,7 @@
 #include <Actor.h>
 
 #include "Components/ActorComponent.h"
-#include "HexTile/HexTile.h"
+#include "DataStructs/HexTile.h"
 
 #include "HexFieldGenerator.generated.h"
 

@@ -39,7 +39,7 @@ void UGamePieceAdditionalData::SetGamePieceData(FGamePieceData PieceData)
 	GamePieceData.PositionOnHexGrid = PieceData.PositionOnHexGrid;
 }
 
-void UGamePieceAdditionalData::GetGamePieceAdditionalData(FGamePieceData PieceData)
+void UGamePieceAdditionalData::GetGamePieceAdditionalData(FGamePieceData& PieceData)
 {
 	PieceData.GamePieceActor = GamePieceData.GamePieceActor;
 	PieceData.GamePieceType = GamePieceData.GamePieceType;

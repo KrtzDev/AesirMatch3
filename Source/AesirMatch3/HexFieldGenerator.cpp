@@ -8,7 +8,7 @@
 
 #include "GamePieceAdditionalData.h"
 #include "HexTileAdditionalData.h"
-#include "HexTile/GamePiece.h"
+#include "DataStructs/GamePiece.h"
 
 // Sets default values for this component's properties
 UHexFieldGenerator::UHexFieldGenerator()
@@ -102,14 +102,10 @@ void UHexFieldGenerator::SpawnHexTile(FVector Location,FVector2D GridLocation)
 
 void UHexFieldGenerator::FillHexGrid(TMap<FVector2D,AActor*> GeneratedHexGrid)
 {
-
-	
-
 	for (auto& GeneratedHexTile : GeneratedHexGrid)
 	{		
 		FVector SpawnLocation = GeneratedHexTile.Value->GetActorLocation();
-		SpawnGamePiece(SpawnLocation,GeneratedHexTile.Key);
-		
+		SpawnGamePiece(SpawnLocation,GeneratedHexTile.Key);	
 	}
 }
 

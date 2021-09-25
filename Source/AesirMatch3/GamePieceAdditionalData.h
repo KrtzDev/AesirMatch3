@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "HexTile/GamePiece.h"
+#include "DataStructs/GamePiece.h"
 
 #include "GamePieceAdditionalData.generated.h"
 
@@ -27,5 +27,5 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void SetGamePieceData(FGamePieceData PieceData);
-	void GetGamePieceAdditionalData(FGamePieceData PieceData);
+	void GetGamePieceAdditionalData(FGamePieceData& PieceData);
 };

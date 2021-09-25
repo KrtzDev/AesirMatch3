@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "HexTile/HexTile.h"
+#include "DataStructs/HexTile.h"
 
 #include "HexTileAdditionalData.generated.h"
 
