@@ -20,9 +20,6 @@ UHexTileAdditionalData::UHexTileAdditionalData()
 void UHexTileAdditionalData::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-	
 }
 
 
@@ -30,9 +27,8 @@ void UHexTileAdditionalData::BeginPlay()
 void UHexTileAdditionalData::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
 }
+
 
 void UHexTileAdditionalData::SetHexTileData(FHexTileData TileData)
 {
@@ -40,6 +36,7 @@ void UHexTileAdditionalData::SetHexTileData(FHexTileData TileData)
 	HexTileData.WorldLocation = TileData.WorldLocation;
 	HexTileData.GridLocation = TileData.GridLocation;
 }
+
 
 void UHexTileAdditionalData::GetHexTileData(FHexTileData& TileData)
 {

@@ -33,7 +33,7 @@ public:
 	void SpawnHexGrid(int32 MinX, int32 MaxX, int32 MinY, int32 MaxY, FVector BaseLocation);
 	void FillHexGrid(TMap<FVector2D,AActor*> GeneratedHexGrid);
 	void SpawnGamePiece(FVector SpawnLocation, FVector2D HexGridPosition);
-	void SpawnGamePiece(FVector SpawnLocation);
+	void UpdateHexField();
 
 private:
 	UPROPERTY(EditAnywhere) int32 MaxGridSizeX;

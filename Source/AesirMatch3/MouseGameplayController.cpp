@@ -6,6 +6,7 @@
 #include "TileBase.h"
 #include "Kismet/GameplayStatics.h"
 
+
 // Sets default values for this component's properties
 UMouseGameplayController::UMouseGameplayController()
 {
@@ -22,7 +23,6 @@ void UMouseGameplayController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
 	bLMBisPressed = false;
 	PlayerController = UGameplayStatics::GetPlayerController(GetWorld(),0);
 	PlayerController->InputComponent->BindAction("Action",IE_Pressed,this,&UMouseGameplayController::MouseClicked);
@@ -35,7 +35,6 @@ void UMouseGameplayController::TickComponent(float DeltaTime, ELevelTick TickTyp
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
 	if(bLMBisPressed)
 	{
 		DoCursorRaycast();	
@@ -90,25 +89,24 @@ void UMouseGameplayController::EvaluateCursorRaycastHitResult(FHitResult HitResu
 		{
 			SelectedType = GamePieceData.GamePieceType;
 			LastAddedGamePieceLocation = FVector2D(GamePieceData.PositionOnHexGrid.X,GamePieceData.PositionOnHexGrid.Y);
+			UE_LOG(LogTemp,Warning,TEXT("%s"),*LastAddedGamePieceLocation.ToString());
+			AddToSelectedTiles(GamePieceData.PositionOnHexGrid,HitTile);
+			return;
 		}
 		
 		if(GamePieceData.GamePieceType == SelectedType)
 		{
 			if(!SelectedGamePieces.Contains(GamePieceData.PositionOnHexGrid))
-			{
-				UE_LOG(LogTemp,Warning,TEXT("%s"),*LastAddedGamePieceLocation.ToString());	
-				//UE_LOG(LogTemp,Warning,TEXT("%d"),LastAddedGamePieceLocation.Y);
-				
-				if(FMath::Abs(LastAddedGamePieceLocation.X - GamePieceData.PositionOnHexGrid.X) +
-				   FMath::Abs(LastAddedGamePieceLocation.Y - GamePieceData.PositionOnHexGrid.Y) <= 1)
+			{							
+				if(FMath::Abs(LastAddedGamePieceLocation.X - GamePieceData.PositionOnHexGrid.X)
+				 + FMath::Abs(LastAddedGamePieceLocation.Y - GamePieceData.PositionOnHexGrid.Y) <= 1
+				|| FMath::Abs(LastAddedGamePieceLocation.X - GamePieceData.PositionOnHexGrid.X) == 1
+				&& FMath::Abs(LastAddedGamePieceLocation.Y - GamePieceData.PositionOnHexGrid.Y) == 1)
 				{
 					LastAddedGamePieceLocation = GamePieceData.PositionOnHexGrid;
+					UE_LOG(LogTemp,Warning,TEXT("%s"),*LastAddedGamePieceLocation.ToString());
 					AddToSelectedTiles(GamePieceData.PositionOnHexGrid,HitTile);
 					UE_LOG(LogTemp,Warning,TEXT("Added Tile"));	
-				}
-				else
-				{
-					UE_LOG(LogTemp,Warning,TEXT("To Far"));
 				}
 			}			
 		}				
@@ -123,20 +121,16 @@ void UMouseGameplayController::AddToSelectedTiles(FVector2D TileLocation,AActor*
 
 
 void UMouseGameplayController::ClearSelectedTilesMap()
-{
+{	
 	if(SelectedGamePieces.Num() >= 3)
 	{
 		for (auto& SelectedPieces: SelectedGamePieces)
 		{
 			SelectedPieces.Value->Destroy();
+
+			//TODO: update HexGrid So tiles fall from above
 		}
 	}
 	SelectedGamePieces.Empty();
-}
-
-
-void UMouseGameplayController::RemoveTilesFromBoard()
-{
-	
 }
 

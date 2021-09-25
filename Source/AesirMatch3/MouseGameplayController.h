@@ -6,6 +6,7 @@
 
 #include <Actor.h>
 
+#include "HexFieldGenerator.h"
 #include "Components/ActorComponent.h"
 #include "DataStructs/GamePiece.h"
 
@@ -34,7 +35,6 @@ public:
 	void EvaluateCursorRaycastHitResult(FHitResult HitResult);
 	void AddToSelectedTiles(FVector2D TileLocation, AActor* HitTile);
 	void ClearSelectedTilesMap();
-	void RemoveTilesFromBoard();
 
 private:
 	bool bLMBisPressed;

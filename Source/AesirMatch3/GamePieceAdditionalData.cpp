@@ -28,9 +28,8 @@ void UGamePieceAdditionalData::BeginPlay()
 void UGamePieceAdditionalData::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
 }
+
 
 void UGamePieceAdditionalData::SetGamePieceData(FGamePieceData PieceData)
 {
@@ -38,6 +37,7 @@ void UGamePieceAdditionalData::SetGamePieceData(FGamePieceData PieceData)
 	GamePieceData.GamePieceType = PieceData.GamePieceType;
 	GamePieceData.PositionOnHexGrid = PieceData.PositionOnHexGrid;
 }
+
 
 void UGamePieceAdditionalData::GetGamePieceAdditionalData(FGamePieceData& PieceData)
 {

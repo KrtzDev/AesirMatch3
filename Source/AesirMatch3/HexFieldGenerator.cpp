@@ -26,11 +26,8 @@ void UHexFieldGenerator::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-
 	SpawnHexGrid(0,MaxGridSizeX,0,MaxGridSizeY,GetOwner()->GetActorLocation());
 	FillHexGrid(HexGrid);
-	
 }
 
 
@@ -42,6 +39,7 @@ void UHexFieldGenerator::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	// ...
 }
 
+
 void UHexFieldGenerator::SpawnHexGrid(int32 MinX, int32 MaxX, int32 MinY, int32 MaxY, FVector BaseLocation)
 {
 	int32 ix, iy;
@@ -50,10 +48,7 @@ void UHexFieldGenerator::SpawnHexGrid(int32 MinX, int32 MaxX, int32 MinY, int32 
 	float tileSideLength;
 	FVector SpawnLocation;
 
-
-	//tileSideLength = FGenericPlatformMath::Tan(FMath::DegreesToRadians(30) * 100.0f * 2);
-
-	UE_LOG(LogTemp,Warning,TEXT("%d"),tileSideLength);
+	
 	tileSideLength = 105;
 	tileWidth = tileSideLength * 2.0f;
 	tileHeight = FGenericPlatformMath::Sqrt(3.0f) * tileSideLength;;
@@ -79,6 +74,7 @@ void UHexFieldGenerator::SpawnHexGrid(int32 MinX, int32 MaxX, int32 MinY, int32 
 	}
 }
 
+
 void UHexFieldGenerator::SpawnHexTile(FVector Location,FVector2D GridLocation)
 {
 	FActorSpawnParameters SpawnParameters;
@@ -95,10 +91,12 @@ void UHexFieldGenerator::SpawnHexTile(FVector Location,FVector2D GridLocation)
 		TileData.HexTileActor = SpawnedTile;
 		TileData.WorldLocation = Location;
 		TileData.GridLocation = GridLocation;
+		TileData.bHasGamePiece = true;
 		HexTileData->SetHexTileData(TileData);
 	}
 	HexGrid.Add(GridLocation,SpawnedTile);
 }
+
 
 void UHexFieldGenerator::FillHexGrid(TMap<FVector2D,AActor*> GeneratedHexGrid)
 {
@@ -109,6 +107,7 @@ void UHexFieldGenerator::FillHexGrid(TMap<FVector2D,AActor*> GeneratedHexGrid)
 	}
 }
 
+
 void UHexFieldGenerator::SpawnGamePiece(FVector SpawnLocation, FVector2D HexGridPosition)
 {
 	FActorSpawnParameters SpawnParameters;
@@ -117,6 +116,7 @@ void UHexFieldGenerator::SpawnGamePiece(FVector SpawnLocation, FVector2D HexGrid
 	UGamePieceAdditionalData* GamePieceData;
 	FGamePieceData PieceData;
 
+	
 	SpawnedGamePiece = GetWorld()->SpawnActor(GamePieces[FMath::RandRange(0,GamePieces.Num()-1)], &SpawnLocation, &Rotation, SpawnParameters);
 	GamePieceData = SpawnedGamePiece->FindComponentByClass<UGamePieceAdditionalData>();
 	if(GamePieceData)
@@ -127,4 +127,21 @@ void UHexFieldGenerator::SpawnGamePiece(FVector SpawnLocation, FVector2D HexGrid
 		GamePieceData->SetGamePieceData(PieceData);
 	}
 }
+
+
+void UHexFieldGenerator::UpdateHexField()
+{
+	//TODO: Update GamePieces on Hexfield
+	
+	for (auto& Tile : HexGrid)
+	{
+		FHexTileData HexTileData;
+		
+		Tile.Value->FindComponentByClass<UHexTileAdditionalData>()->GetHexTileData(HexTileData);
+		if(!HexTileData.bHasGamePiece)
+		{
+			UE_LOG(LogTemp,Warning,TEXT("No GamePiece"));
+		}
+	}
+} 
 
